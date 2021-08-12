@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/animate.css"/>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		
+		<div id="app" class="quanping">
+			
+			<transition name="slide" enter-active-class="animated bounceInLeft" leave-active-class="animated bounceOutRight">
+				
+				<div  v-show="isShow" class="neirong">
+					
+				</div>
+			</transition>
+		
+			
+			
+			<button type="button" @click="dianji">{{title}}</button>
+			
+		</div>
+		
+	</body>
+	
+	<script type="text/javascript">
+			let app = new Vue({
+				el:"#app",
+				data:{
+					title:"点击展示小方块",
+					isShow:false
+				},
+				methods:{
+					dianji:function(){
+						this.isShow = !this.isShow
+						this.title = this.isShow ? "点击展示小方块":"点击收起小方块"
+					}
+				}
+				
+
+			})
+		
+		
+	</script>
+	
+	<style type="text/css">
+		.neirong{
+			width: 200px;
+			height: 200px;
+			background: skyblue;
+			left: 50vw;
+		}
+		.quanping{
+			width: 100vw;
+			height: 100vw;
+		}
+		/* .slide-enter-active{
+		  transition: all 3s;
+		}
+		.slide-leave-active {
+		  transition: all 5s;
+		}
+		.slide-enter, .slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
+			transform: translateX(500px);
+			opacity: 0;
+		} */
+		
+		
+		
+	</style>
+	
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h1>请输入代办事项</h1>
+			<input type="text" name="" @keydown.enter= "tianjia"  v-model ="shijian" />
+			
+			<hr />
+			<h1>待完成事件</h1>
+			  <ul style="todo" v-for="item in todos">
+			  	<daiwanchen  :name="item">{{item.name}}</daiwanchen>
+			  </ul>
+			<hr />
+			<h1>已完成事件</h1>
+			<ul v-for="item in doeds">
+				<yiwanchen :name="item">{{item.name}}</yiwanchen>
+			</ul>
+		</div>
+	</body>
+	
+	<script type="text/x-template" id="daiwanchen">
+		<div>
+			 <input type="checkbox" @click.prevent="$parent.dianjidaiwancheng(name)"/>
+			 <slot></slot>
+			 <button type="button" >删除</button>
+		</div>
+		 
+	</script>
+	
+	<script type="text/x-template" id="yiwanchen">
+		<div>
+			 <input type="checkbox" checked="checked" @click.prevent="dianjiyiwancheng(name)"/>
+			
+			 <slot></slot>
+			  <button type="button" >删除</button>
+		</div>
+		 
+	</script>
+	
+	
+	<script type="text/javascript">
+		let com1 = Vue.component("daiwanchen",{
+			props:["name"],
+			name:'daiwanchen',
+			template:'#daiwanchen'
+		})
+		
+		let com2 = Vue.component("yiwanchen",{
+			props:["name","action"],
+			name:'yiwanchen',
+			template:'#yiwanchen',
+			methods:{
+				dianjiyiwancheng:function(value){
+					this.$parent.doeds.splice(value.index,1)
+					this.$parent.todos.push(value)
+					this.$parent.chongxinpai()
+					console.log("已完成执行")
+				}
+			}
+		})
+		
+		
+		let app = new Vue({
+			el:"#app",
+			data:{
+				todos:[],
+				doeds:[],
+				shijian:""
+			},
+			methods:{
+			    tianjia:function(){
+					console.log("添加事件"+this.shijian)
+					this.todos.push({
+						name:this.shijian,
+						index:this.todos.length,
+					})
+					this.shijian = ""
+				},
+				dianjidaiwancheng:function(value){
+					this.doeds.push(value);
+					this.todos.splice(value.index,1)
+					this.chongxinpai()
+					console.log("待完成执行")
+					
+				}, 
+				chongxinpai:function(){
+					this.doeds.forEach(function(item,i){
+					    item.index = i;	
+					})
+					this.todos.forEach(function(item,i){
+						item.index = i
+					})
+				}
+				
+				
+			},
+			
+			
+		})
+		
+		
+	</script>
+	
+	
+	<style type="text/css">
+		.todo{
+			background-color: skyblue;
+		}
+		.doed:{
+			background: lightgrey;
+		}
+		
+		
+		
+	</style>
+	
+	<!-- ul>
+		<div>
+			<input type="checkbox" name="" id="" value="" />
+			<h4> </h4>
+		</div>
+	</ul>
+	 -->
+</html>

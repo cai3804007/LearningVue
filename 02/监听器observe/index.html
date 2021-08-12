@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h1>{{msg}}</h1>
+			<h1>{{obsermsg}}</h1>
+			
+			<ul>
+				<li v-for="item in arr" >{{item}}</li>
+			</ul>
+			
+			<button @click="tianjia">添加一个元素</button>
+			<button @click="shanchu">删除一个元素</button>
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		
+		let app = new Vue({
+			el:"#app",
+			data:{
+				msg:"这是一条信息",
+				arr:["小黑","小黄","小绿","小白"]
+			},
+			computed:{//计算属性
+				obsermsg:{
+					get:function(){
+						return this.msg.split("").reverse().join("")
+					},
+					set:function(newvalue){
+						this.obsermsg = newvalue
+						this.msg = "消息改变了啊"
+					}
+				}
+			},
+			watch:{
+				msg:function(vlaue){
+					console.log("msg改变了"+vlaue)
+				},
+				obsermsg:function(value){
+					console.log("obsermsg改变了"+value)
+				},
+				arr:function(value){
+					console.log(value)
+				}
+			},
+			methods:{
+				tianjia:function(){
+					this.arr.push("小粉")
+				},
+				shanchu:function(){
+					this.arr.pop()
+				}
+				
+				
+			}
+			
+		})
+		
+		
+	</script>
+	
+	
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+
+				<button @click="dakia">{{title}}</button>
+
+			<transition name="slideRight">
+				<div class="rightMenu" v-show="isShow">
+					侧边栏
+				</div>
+			</transition>
+			
+			
+			
+			
+			<ul>
+				<li v-for="item,index in array" @click = "chuancan(index,item,$event)" >{{item}}</li>
+			</ul>
+			
+		</div>
+		
+	
+
+
+
+	</body>
+
+	<script type="text/javascript">
+		let app = new Vue({
+			el: "#app",
+			data:{
+				title: "打开菜单",
+				isShow: false,
+				array:["小黄","小绿","小黑"]
+			},
+			methods: {
+				dakia: function() {
+					this.isShow = !this.isShow
+					this.title = this.isShow ? "关闭菜单" : "打开菜单"
+				},
+				chuancan:function(index,item,event){
+					console.log(index)
+					console.log(item)
+					console.log(event)
+				}
+				
+
+			}
+
+
+		})
+	</script>
+	
+	<style type="text/css">
+		.rightMenu{
+			width: 50vw;
+			height: 100vw;
+			position: fixed;
+			left: 0;
+			top: 0;
+			transform: translateX(50vw);
+			background: skyblue;
+		}
+		.slideRight-enter-active,.slideRight-leave-active{
+			transition: all 2s;
+		}
+		.slideRight-enter,.slideRight-leave-to{
+			transform: translateX(100vw);
+		}
+		
+		.page{
+			width: 100vw;
+			height: 100vh;
+			background-color: #efefef;
+			position: fixed;
+			left: 0;
+			top: 0;
+		}
+		
+	</style>
+
+
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h3>{{username}}</h3>
+			<h3>当行文本输入框</h3>
+			<!-- lazy输入完成之后才改变信息 -->
+			<input type="text" name="username" v-model.lazy="username" value="" />
+			<h3>多行文本输入</h3>
+			<textarea rows="" cols="" v-model="username">
+				
+			</textarea>
+			<h3>复选框</h3>
+			<h4>请选择喜欢的水果</h4>
+			<ul>
+				<li v-for="item in array">
+					<span>{{item}}</span>
+					<input name="Checkbox" type="checkbox" v-model="chooseShuiguo" :value="item" >
+				</li>
+			</ul>
+			
+			<h2>你选择的水果为:{{chooseShuiguo}}</h2>
+			
+			<h4>请选择你最喜欢的水果</h4>
+			<span v-for="item in array">
+				<input type="radio" name="" id="" :value="item" v-model="zuixihuan" />
+				{{item}}
+			</span>
+			<h2>你选择的水果为:{{zuixihuan}}</h2>
+			
+			
+			<h4>选项框</h4>
+			<select v-model="city"> 
+				<option >请选择</option>
+				<option  v-for="item in citys" >{{item}}</option>
+			</select>
+			<h2>你选择的城市为:{{city}}</h2>
+			
+			<h4>将字符串变为数字获取</h4>
+			<input type="text" name="" id="" v-model.number="age" value="" />
+			
+		</div>
+	</body>
+	
+	<script type="text/javascript">
+		let app = new Vue({
+			el:"#app",
+			data:{
+				username:"123",
+				array:["苹果","香蕉","梨子"],
+				chooseShuiguo:[],
+				zuixihuan:"",
+				city:"",
+				age:0,
+				citys:["广州","武汉","天津","北京"],
+			},
+			watch:{
+				age:function(value){
+					console.log(value)
+				}
+				
+				
+			}
+			
+			
+			
+		})
+	</script>
+	
+</html>
